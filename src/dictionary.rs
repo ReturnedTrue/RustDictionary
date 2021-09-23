@@ -65,10 +65,10 @@ where
 
     pub fn for_each<F>(&self, callback: F)
     where
-        F: Fn(&K, &V) -> (),
+        F: Fn(K, &V) -> (),
     {
         for (index, value) in self.values.iter().enumerate() {
-            callback(&self.keys[index], value);
+            callback(self.keys[index], value);
         }
     }
 
@@ -99,4 +99,19 @@ where
 
         return new_dict;
     }
+
+	pub fn update<F>(&mut self, key: K, update: F) -> bool
+		where F: Fn(&V) -> V
+	{
+        let position = self.get_key_position(&key);
+		
+		if (position.is_some()) {
+			let unwrapped_position = position.unwrap();
+			self.values[unwrapped_position] = update(&self.values[unwrapped_position]);
+
+			return true;
+		}
+
+		return false;
+	}
 }

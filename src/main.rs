@@ -6,18 +6,17 @@ use dictionary::Dictionary;
 
 fn main() {
     let mut dict = Dictionary::<&str, i8>::new();
-    let index = "A";
 
-    dict.set(index, 1);
-    dict.set(index, 2);
+    dict.set("Player1", 1);
+    dict.set("Player2", 1);
 
-    println!("Index: {}", dict.get(index).unwrap());
+    println!("Player1: {}", dict.get("Player1").unwrap());
 
     let mut mapped_dict = dict.map(|item| item + 1);
 
-    mapped_dict.set("B", 2);
+    mapped_dict.update("Player1", |item| item + 1);
 
     let filtered_dict = mapped_dict.filter(|item| item == &3);
 
-    println!("Updated index: {}", filtered_dict.get(index).unwrap());
+    filtered_dict.for_each(|key, _value| println!("{} has 3 pts", key));
 }

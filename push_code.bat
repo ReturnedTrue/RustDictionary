@@ -2,6 +2,5 @@
 
 cargo fmt
 git add .
-git commit --amend
-echo :wq
+git commit --amend --no-edit
 git push origin master --force

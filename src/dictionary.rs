@@ -65,10 +65,10 @@ where
 
     pub fn for_each<F>(&self, callback: F)
     where
-        F: Fn(&V) -> (),
+        F: Fn(&K, &V) -> (),
     {
-        for value in self.values.iter() {
-            callback(value);
+        for (index, value) in self.values.iter().enumerate() {
+            callback(&self.keys[index], value);
         }
     }
 

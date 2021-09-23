@@ -100,18 +100,19 @@ where
         return new_dict;
     }
 
-	pub fn update<F>(&mut self, key: K, update: F) -> bool
-		where F: Fn(&V) -> V
-	{
+    pub fn update<F>(&mut self, key: K, update: F) -> bool
+    where
+        F: Fn(&V) -> V,
+    {
         let position = self.get_key_position(&key);
-		
-		if (position.is_some()) {
-			let unwrapped_position = position.unwrap();
-			self.values[unwrapped_position] = update(&self.values[unwrapped_position]);
 
-			return true;
-		}
+        if (position.is_some()) {
+            let unwrapped_position = position.unwrap();
+            self.values[unwrapped_position] = update(&self.values[unwrapped_position]);
 
-		return false;
-	}
+            return true;
+        }
+
+        return false;
+    }
 }
